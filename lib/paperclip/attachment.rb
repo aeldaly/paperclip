@@ -48,6 +48,7 @@ module Paperclip
       @errors            = {}
       @validation_errors = nil
       @dirty             = false
+      @commands          = options[:commands] || {}
 
       normalize_style_definition
       initialize_storage
@@ -324,7 +325,8 @@ module Paperclip
             :geometry        => dimensions,
             :format          => format,
             :whiny           => @whiny,
-            :convert_options => extra_options_for(name)
+            :convert_options => extra_options_for(name),
+            :commands        => @commands[name]
           }
         else
           @styles[name] = {

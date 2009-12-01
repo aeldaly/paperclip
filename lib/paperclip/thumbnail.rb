@@ -21,6 +21,7 @@ module Paperclip
       @convert_options     = options[:convert_options]
       @whiny               = options[:whiny].nil? ? true : options[:whiny]
       @format              = options[:format]
+      @commands            = options[:commands]
 
       @current_format      = File.extname(@file.path)
       @basename            = File.basename(@file.path, @current_format)
@@ -66,6 +67,7 @@ module Paperclip
       trans = ""
       trans << " -resize \"#{scale}\"" unless scale.nil? || scale.empty?
       trans << " -crop \"#{crop}\" +repage" if crop
+      trans << " #{@commands}" unless @commands.nil?
       trans << " #{convert_options}" if convert_options?
       trans
     end
